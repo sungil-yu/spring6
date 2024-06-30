@@ -20,4 +20,40 @@ public class Payment {
         this.convertedAmount = convertedAmount;
         this.validUntil = validUntil;
     }
+
+    public Long getOrderId() {
+        return orderId;
+    }
+
+    public String getCurrency() {
+        return currency;
+    }
+
+    public BigDecimal getForeignCurrencyAmount() {
+        return foreignCurrencyAmount;
+    }
+
+    public BigDecimal getExRate() {
+        return exRate;
+    }
+
+    public BigDecimal getConvertedAmount() {
+        return convertedAmount;
+    }
+
+    public LocalDateTime getValidUntil() {
+        return validUntil;
+    }
+
+    @Override
+    public String toString() {
+        return "Payment{" +
+            "orderId=" + orderId +
+            ", currency='" + currency + '\'' +
+            ", foreignCurrencyAmount=" + foreignCurrencyAmount +
+            ", exRate=" + exRate +
+            ", convertedAmount=" + convertedAmount +
+            ", validUntil=" + validUntil +
+            '}';
+    }
 }
