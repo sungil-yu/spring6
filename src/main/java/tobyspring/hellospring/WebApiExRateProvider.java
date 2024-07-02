@@ -10,9 +10,9 @@ import java.net.HttpURLConnection;
 import java.net.URL;
 import java.util.stream.Collectors;
 
-public class WebApiExRatePaymentService extends PaymentService{
-    @Override
-    BigDecimal getExRate(String currency) throws IOException {
+public class WebApiExRateProvider implements ExRateProvider{
+
+    public BigDecimal getExRate(String currency) throws IOException {
         String apiKey = "f05a147b2d7951e5be05b02a";
         String apiUrl = "https://v6.exchangerate-api.com/v6/";
 
