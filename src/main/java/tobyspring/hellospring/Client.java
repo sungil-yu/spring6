@@ -2,22 +2,26 @@ package tobyspring.hellospring;
 
 import java.io.IOException;
 import java.math.BigDecimal;
+import java.util.concurrent.TimeUnit;
 
 import org.springframework.beans.factory.BeanFactory;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 
 public class Client {
 
-    public static void main(String[] args) throws IOException {
+    public static void main(String[] args) throws IOException, InterruptedException {
         BeanFactory objectFactory = new AnnotationConfigApplicationContext(ObjectFactory.class);
         PaymentService paymentService = objectFactory.getBean(PaymentService.class);
+
         Payment payment = paymentService.prepare(1L, "USD", new BigDecimal("453.123"));
-<<<<<<< HEAD
+
+        TimeUnit.SECONDS.sleep(1);
+
         Payment payment2 = paymentService.prepare(1L, "USD", new BigDecimal("453.123"));
 
-=======
-        System.out.println(payment);
->>>>>>> a9957a02ffa90b1166fe1218779db711a1a073ea
+        TimeUnit.SECONDS.sleep(2);
+
+        Payment payment3 = paymentService.prepare(1L, "USD", new BigDecimal("453.123"));
     }
 }
 
