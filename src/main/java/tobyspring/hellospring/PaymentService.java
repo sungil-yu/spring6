@@ -4,8 +4,8 @@ import java.io.IOException;
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
 
-
-//결제 준비 기능
+import org.springframework.stereotype.Service;
+@Service
 public class PaymentService {
     private final ExRateProvider exRateProvider;
 
