@@ -1,4 +1,4 @@
-package tobyspring.hellospring;
+package tobyspring.hellospring.exrate;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 
@@ -10,7 +10,9 @@ import java.net.HttpURLConnection;
 import java.net.URL;
 import java.util.stream.Collectors;
 
-public class WebApiExRateProvider implements ExRateProvider{
+import tobyspring.hellospring.payment.ExRateProvider;
+
+public class WebApiExRateProvider implements ExRateProvider {
 
     public BigDecimal getExRate(String currency) throws IOException {
         String apiKey = "f05a147b2d7951e5be05b02a";
