@@ -1,41 +1,48 @@
 package tobyspring.hellospring.exrate;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
-import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
-import java.io.BufferedReader;
 import java.io.IOException;
-import java.io.InputStreamReader;
 import java.math.BigDecimal;
 import java.net.*;
-import java.util.stream.Collectors;
 
+import tobyspring.hellospring.api.ApiExecutor;
+import tobyspring.hellospring.api.ExRateExtractor;
+import tobyspring.hellospring.api.SimpleApiExecutor;
 import tobyspring.hellospring.payment.ExRateProvider;
 
 public class WebApiExRateProvider implements ExRateProvider {
-
     public BigDecimal getExRate(String currency) {
-        String url = "https://v6.exchangerate-api.com/v6/f05a147b2d7951e5be05b02a/latest/";
+        String url = "https://v6.exchangerate-api.com/v6/f05a147b2d7951e5be05b02a/latest/" + currency;
 
-        URI uri;
-        String res;
-        try {
-            uri = new URI(url + currency);
-            HttpURLConnection connection = (HttpURLConnection) uri.toURL().openConnection();
-            try (BufferedReader br = new BufferedReader(new InputStreamReader(connection.getInputStream()))) {
-                res = br.lines().collect(Collectors.joining());
-            }
+        return runApiForExRate(url, new SimpleApiExecutor(), res -> {
             ObjectMapper objectMapper = new ObjectMapper();
-            ExchangeRateData data = objectMapper.readValue(res, ExchangeRateData.class);
-            System.out.println("call web api ExRate");
+            ExchangeRateData data = null;
+            try {
+                data = objectMapper.readValue(res, ExchangeRateData.class);
+                return data.conversionRates().get("KRW");
+            } catch (JsonProcessingException e) {
+                throw new RuntimeException(e);
+            }
+        });
 
-            return data.conversionRates().get("KRW");
+    }
 
-        } catch (URISyntaxException | IOException e) {
+    private BigDecimal runApiForExRate(String url, ApiExecutor apiExecutor, ExRateExtractor exRateExtractor) {
+        URI uri;
+        try {
+            uri = new URI(url);
+        } catch (URISyntaxException e) {
             throw new RuntimeException(e);
         }
 
+        String res = apiExecutor.execute(uri);
+
+        return exRateExtractor.extract(res);
     }
+
+
+
 }
 
