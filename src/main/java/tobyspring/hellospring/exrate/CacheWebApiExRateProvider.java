@@ -15,7 +15,7 @@ public class CacheWebApiExRateProvider implements ExRateProvider {
     public CacheWebApiExRateProvider(ExRateProvider webApiExRateProvider) {
         this.webApiExRateProvider = webApiExRateProvider;
     }
-    public BigDecimal getExRate(String currency) throws IOException {
+    public BigDecimal getExRate(String currency) {
         if(cacheExRate == null || cacheExpiryTime.isBefore(LocalDateTime.now())) {
             cacheExRate = webApiExRateProvider.getExRate(currency);
             cacheExpiryTime = LocalDateTime.now().plusSeconds(3);

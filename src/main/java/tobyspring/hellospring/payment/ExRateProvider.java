@@ -7,5 +7,5 @@ import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
 
 public interface ExRateProvider {
-	BigDecimal getExRate(String currency) throws IOException;
+	BigDecimal getExRate(String currency);
 }
