@@ -2,30 +2,39 @@ package tobyspring.hellospring;
 
 import java.math.BigDecimal;
 
+import org.hibernate.exception.ConstraintViolationException;
 import org.springframework.beans.factory.BeanFactory;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
+import org.springframework.dao.DataIntegrityViolationException;
+import org.springframework.orm.jpa.JpaTransactionManager;
+import org.springframework.transaction.support.TransactionTemplate;
 
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.EntityManagerFactory;
+import tobyspring.hellospring.data.OrderRepository;
 import tobyspring.hellospring.order.Order;
 
 public class DataClient {
 
 	public static void main(String[] args) {
 		BeanFactory beanFactory = new AnnotationConfigApplicationContext(DataConfig.class);
+		OrderRepository orderRepository = beanFactory.getBean(OrderRepository.class);
+		JpaTransactionManager transactionManager = beanFactory.getBean(JpaTransactionManager.class);
 
-		EntityManager em = beanFactory.getBean(EntityManagerFactory.class).createEntityManager();
+		try {
+			new TransactionTemplate(transactionManager).execute(status -> {
 
-		em.getTransaction().begin();
+				Order order = new Order("0001", BigDecimal.valueOf(1000));
 
-		Order order = new Order("0001", BigDecimal.valueOf(1000));
-		em.persist(order);
+					Order order2 = new Order("0001", BigDecimal.valueOf(1000));
+					orderRepository.save(order2);
+				orderRepository.save(order);
+				return null;
+			});
+		} catch (DataIntegrityViolationException e) {
+			System.out.println("주문번호가 중복됩니다.");
+		}
 
-		System.out.println(order);
-
-		em.getTransaction().commit();
-
-		em.close();
 
 	}
 }
