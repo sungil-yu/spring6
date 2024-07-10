@@ -2,23 +2,20 @@ package tobyspring.hellospring;
 
 import java.math.BigDecimal;
 
-import org.hibernate.exception.ConstraintViolationException;
 import org.springframework.beans.factory.BeanFactory;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.orm.jpa.JpaTransactionManager;
 import org.springframework.transaction.support.TransactionTemplate;
 
-import jakarta.persistence.EntityManager;
-import jakarta.persistence.EntityManagerFactory;
-import tobyspring.hellospring.data.OrderRepository;
+import tobyspring.hellospring.data.JpaOrderRepository;
 import tobyspring.hellospring.order.Order;
 
 public class DataClient {
 
 	public static void main(String[] args) {
 		BeanFactory beanFactory = new AnnotationConfigApplicationContext(DataConfig.class);
-		OrderRepository orderRepository = beanFactory.getBean(OrderRepository.class);
+		JpaOrderRepository orderRepository = beanFactory.getBean(JpaOrderRepository.class);
 		JpaTransactionManager transactionManager = beanFactory.getBean(JpaTransactionManager.class);
 
 		try {

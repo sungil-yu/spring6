@@ -13,9 +13,7 @@ import org.springframework.orm.jpa.support.PersistenceAnnotationBeanPostProcesso
 import org.springframework.orm.jpa.vendor.Database;
 import org.springframework.orm.jpa.vendor.HibernateJpaVendorAdapter;
 
-import jakarta.persistence.EntityManager;
 import jakarta.persistence.EntityManagerFactory;
-import tobyspring.hellospring.data.OrderRepository;
 
 @Configuration
 public class DataConfig {
@@ -26,10 +24,6 @@ public class DataConfig {
 		return new EmbeddedDatabaseBuilder().setType(EmbeddedDatabaseType.H2).build();
 	}
 
-	@Bean
-	public OrderRepository orderRepository(EntityManagerFactory emf) {
-		return new OrderRepository();
-	}
 
 	@Bean
 	public BeanPostProcessor persistenceAnnotationBeanPostProcessor() {
