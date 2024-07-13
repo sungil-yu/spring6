@@ -19,7 +19,7 @@ public class JdbcOrderRepository implements OrderRepository {
 	@PostConstruct
 	void init() {
 		jdbcClient.sql("""
-				create table orders (id bigint not null,no varchar(255),total numeric(38, 2), primary key (id));
+				create table orders (id bigint not null,no varchar(255),total numeric(38, 2), primary key (id), unique(no));
 				create sequence orders_SEQ start with 1 increment by 50;
 		""").update();
 	}
@@ -35,4 +35,8 @@ public class JdbcOrderRepository implements OrderRepository {
 
 		return null;
 	}
+
+
 }
+
+

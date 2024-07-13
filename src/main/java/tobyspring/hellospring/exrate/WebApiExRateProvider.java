@@ -2,8 +2,6 @@ package tobyspring.hellospring.exrate;
 
 import java.math.BigDecimal;
 import tobyspring.hellospring.api.ApiTemplate;
-import tobyspring.hellospring.api.ErApiExRateExtractor;
-import tobyspring.hellospring.api.HttpClientApiExecutor;
 import tobyspring.hellospring.payment.ExRateProvider;
 
 public class WebApiExRateProvider implements ExRateProvider {
