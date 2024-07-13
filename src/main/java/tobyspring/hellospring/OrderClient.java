@@ -7,6 +7,7 @@ import org.springframework.context.annotation.AnnotationConfigApplicationContext
 
 import tobyspring.hellospring.order.Order;
 import tobyspring.hellospring.order.OrderService;
+import tobyspring.hellospring.order.OrderServiceImpl;
 
 public class OrderClient {
 	public static void main(String[] args) {

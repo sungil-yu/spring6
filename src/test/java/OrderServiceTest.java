@@ -16,6 +16,7 @@ import tobyspring.hellospring.OrderConfig;
 import tobyspring.hellospring.order.Order;
 import tobyspring.hellospring.order.OrderReq;
 import tobyspring.hellospring.order.OrderService;
+import tobyspring.hellospring.order.OrderServiceImpl;
 
 import javax.sql.DataSource;
 
